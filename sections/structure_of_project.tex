@@ -1,11 +1,20 @@
 \section{Структура проекта}
 
 \subsection{Архитекрутра}
-За основу берётся архитектурный паттерн \acrshort{mvc}, где:
+За основу берётся архитектурный паттерн \acrshort{mvc}. Он предполагает разделение данных приложения, пользовательского интерфейса и управляющей логики на три отдельных компонента: Модель, Представление и Контроллер – таким образом, что модификация каждого компонента может осуществляться независимо.
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.7]{images/MVC-basic.eps}
+    \end{center}
+    \caption{Визуализация архитектуры \acrshort{mvc}}
+\end{figure}
+
+В моём случае это:
 \begin{itemize}
-    \item Model --- \textcite{} для сервера и \textcite{redux} для клиента.
+    \item Model --- \textcite{seqorm} для сервера и \textcite{redux} для клиента.
     \item View --- \textcite{react}
-    \item Controller --- 
+    \item Controller --- \textcite{express}
 \end{itemize}
 
 \clearpage
