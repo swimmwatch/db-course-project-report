@@ -1,0 +1,29 @@
+\section{Визуализации структуры проекта}
+\begin{pycode}
+import os
+
+PROJECT_PATH = "/home/dmitry-vasiliev/WebstormProjects/db-course-project-app"
+
+exclude = set([
+    ".git",
+    ".idea",
+    "node_modules",
+    "build"
+])
+
+print(r'\begin{verbatim}')
+
+level_str = '---'
+for root, dirs, files in os.walk(PROJECT_PATH):
+    dirs[:] = [d for d in dirs if d not in exclude]
+    path = root.split(os.sep)[4:]
+    len_path = len(path)
+    print(f"{(len_path - 1) * level_str} /{os.path.basename(root)}")
+
+    for file in files:
+        print(f"{len_path * level_str} {file}")
+
+print(r'\end{verbatim}')
+\end{pycode}
+
+\clearpage
