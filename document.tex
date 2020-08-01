@@ -3,6 +3,15 @@
 
 \usepackage[acronym, toc]{glossaries}
 
+\usepackage{minted}
+
+\setminted{fontsize=\tiny, baselinestretch=1}
+\makeatletter
+\AtBeginEnvironment{noerr}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+\makeatother
+\newenvironment{noerr}{}
+
 \makeglossaries
 
 \input{glossary}
