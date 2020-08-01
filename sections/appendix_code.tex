@@ -1,0 +1,59 @@
+\section{Код проекта}
+\begin{pycode}
+exclude_file_ext = set([
+    ".map",
+    ".png",
+    ".ico",
+    ".jpeg",
+    ".jpg",
+])
+
+exclude_filenames = set([
+    "yarn.lock",
+    ".env",
+    "bundle.js",
+    "site.webmanifest",
+    ".gitignore"
+])
+
+ext_to_lang = {
+    "handlebars": "html",
+    "tsx": "jsx"
+}
+
+for root, dirs, files in os.walk(PROJECT_PATH):
+    dirs[:] = [d for d in dirs if d not in exclude]
+    relative_path = root.split(os.sep)[4:]
+
+    for file in files:
+        if file in exclude_filenames:
+                continue
+
+        full_filename = os.path.join(root, file)
+        relative_filename = os.path.join(os.sep.join(relative_path), file)
+        _, file_extension = os.path.splitext(full_filename)
+        lang = file_extension[1:]
+
+        if file_extension in exclude_file_ext:
+            continue
+
+        if lang in ext_to_lang:
+            lang = ext_to_lang[lang]
+
+        if lang == '':
+            lang = "text"
+
+        print(r'\begin{verbatim}')
+        print(relative_filename)
+        print(r'\end{verbatim}')
+
+        print(r"\begin{noerr}")
+        print(r''.join([
+            r"\inputminted[linenos,numbersep=5pt,frame=lines]",
+            f"{{{lang}}}",
+            f"{{{full_filename}}}"
+        ]))
+        print(r"\end{noerr}")
+\end{pycode}
+
+\clearpage
