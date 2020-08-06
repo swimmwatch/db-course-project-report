@@ -19,6 +19,43 @@
 
 \subsection{Организация работы с Git}
 \subsection{Сущности}
+Всегда перед проектированием проекта описывают сущности и их атрибуты. На основе данной информации будет стоится база данных. В моём случае они следующие:
+
+\begin{itemize}
+    \item Пользователь
+    \begin{itemize}
+        \item ID пользователя
+        \item Логин
+        \item Пароль
+        \item Email
+    \end{itemize}
+    \item Тест
+    \begin{itemize}
+        \item ID теста
+        \item Название
+        \item Теги
+        \item Контент
+        \item Ответы
+        \item Дата создания
+        \item Дата последнего изменения
+    \end{itemize}
+    \item Тег
+    \begin{itemize}
+        \item ID тега
+        \item Название
+    \end{itemize}
+    \item Попытка
+    \begin{itemize}
+        \item ID попытки
+        \item ID пользователя
+        \item ID теста
+        \item Результат
+        \item Ответы пользователя
+        \item Дата прохождения
+        \item Время прохождения
+    \end{itemize}
+\end{itemize}
+
 \subsection{Сборка и запуск}
 \subsubsection{Development}
 \subsubsection{Production}
