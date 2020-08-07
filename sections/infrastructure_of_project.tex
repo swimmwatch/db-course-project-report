@@ -83,6 +83,21 @@
 
 Есть удобный пакет в npm -- husky. Он позволяет определить в package.json обработку событий. В моём проекте нужно, чтобы на событие pre-commit выполняли проверки линтеры, а потом при успешном результате исполнялись unit-тесты.
 
-% TODO: example of husky
+\begin{listing}[h!]
+\begin{pycode}
+import json
+from pprint import pprint
+
+with open(f"{PROJECT_PATH}/package.json", "r") as f:
+    config = json.load(f)
+
+    print(r"\begin{noerr}")
+    print(r"\begin{minted}{json}")
+    pprint(config["husky"])
+    print(r"\end{minted}")
+    print(r"\end{noerr}")
+\end{pycode}
+\caption{Настройки для Git Hooks}
+\end{listing}
 
 \clearpage
