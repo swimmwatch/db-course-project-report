@@ -115,7 +115,11 @@ with open(f"{PROJECT_PATH}/package.json", "r") as f:
 
     print(r"\begin{noerr}")
     print(r"\begin{minted}{json}")
-    pprint(config["husky"])
+    print(
+        json.dumps(config["husky"],
+                  sort_keys=True,
+                  indent=4)
+    )
     print(r"\end{minted}")
     print(r"\end{noerr}")
 \end{pycode}
