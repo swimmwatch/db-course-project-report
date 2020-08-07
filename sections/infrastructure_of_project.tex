@@ -20,40 +20,45 @@
 \subsection{Сущности}
 Всегда перед проектированием проекта описывают сущности и их атрибуты. На основе данной информации будет стоится база данных. В моём случае они следующие:
 
-\begin{itemize}
-    \item Пользователь
-    \begin{itemize}
-        \item ID пользователя
-        \item Логин
-        \item Пароль
-        \item Email
-    \end{itemize}
-    \item Тест
-    \begin{itemize}
-        \item ID теста
-        \item Название
-        \item Теги
-        \item Контент
-        \item Ответы
-        \item Дата создания
-        \item Дата последнего изменения
-    \end{itemize}
-    \item Тег
-    \begin{itemize}
-        \item ID тега
-        \item Название
-    \end{itemize}
-    \item Попытка
-    \begin{itemize}
-        \item ID попытки
-        \item ID пользователя
-        \item ID теста
-        \item Результат
-        \item Ответы пользователя
-        \item Дата прохождения
-        \item Время прохождения
-    \end{itemize}
-\end{itemize}
+\begin{table}[h!]
+    \begin{center}
+        \begin{tabular}{|l|p{6.5cm}|}
+            \hline
+            \multicolumn{1}{|c|}{\textbf{Сущность}} & \multicolumn{1}{c|}{\textbf{Атрибуты}} \\ \hline
+            Пользователь & \begin{itemize}
+                \item ID пользователя
+                \item Логин
+                \item Пароль
+                \item Email
+            \end{itemize} \\ \hline
+            Тест & \begin{itemize}
+                \item ID теста
+                \item Название
+                \item Теги
+                \item Контент
+                \item Ответы
+                \item Дата создания
+                \item Дата последнего изменения
+            \end{itemize} \\ \hline
+            Тег & \begin{itemize}
+                \item ID тега
+                \item Название
+            \end{itemize}
+            \\ \hline
+            Попытка & \begin{itemize}
+                \item ID попытки
+                \item ID пользователя
+                \item ID теста
+                \item Результат
+                \item Ответы пользователя
+                \item Дата прохождения
+                \item Время прохождения
+            \end{itemize}
+            \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Описание сущностей и атрибутов}
+\end{table}
 
 \subsection{Сборка и запуск}
 Все процессы отвечающие за сборку и запуск приложения я разделил на подзадачи. Каждая такая подзадача является npm скриптом. Они все описываются в файле package.json. Также среди данных скриптов можно выделить две группы -- Development и Production.
