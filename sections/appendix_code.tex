@@ -28,7 +28,7 @@ for root, dirs, files in os.walk(PROJECT_PATH):
 
         print(r"\begin{noerr}")
         print(r''.join([
-            r"\inputminted[linenos,numbersep=5pt,frame=lines]",
+            r"\inputminted",
             f"{{{lang}}}",
             f"{{{full_filename}}}"
         ]))
