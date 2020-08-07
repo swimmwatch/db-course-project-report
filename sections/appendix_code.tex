@@ -1,27 +1,5 @@
 \section{Код проекта}
 \begin{pycode}
-exclude_file_ext = set([
-    ".map",
-    ".png",
-    ".ico",
-    ".jpeg",
-    ".jpg",
-])
-
-exclude_filenames = set([
-    "yarn.lock",
-    ".env",
-    "bundle.js",
-    "site.webmanifest",
-    ".gitignore",
-    "config.ts"
-])
-
-ext_to_lang = {
-    "handlebars": "html",
-    "tsx": "jsx"
-}
-
 for root, dirs, files in os.walk(PROJECT_PATH):
     dirs[:] = [d for d in dirs if d not in exclude]
     relative_path = root.split(os.sep)[4:]
