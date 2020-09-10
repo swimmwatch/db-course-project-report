@@ -21,4 +21,22 @@
     \item Обмен информацией --- \acrshort{jwt} хороший способ безопасной передачи информации между сторонами. Поскольку \acrshort{jwt} могут быть подписаны, например, с использованием пар открытого и закрытого ключей, вы можете быть уверены, что отправители являются теми, кем они себя называют. Кроме того, поскольку подпись рассчитывается с использованием \textbf{заголовка} и \textbf{полезных данных}, вы также можете убедиться, что содержимое не было изменено.
 \end{itemize}
 
+\acrshort{jwt} состоит из следующих частей:
+\begin{itemize}
+    \item Заголовок ---  содержит информацию о том, как должна вычисляться подпись. Обычно состоит из двух частей: типа токена, которым является \acrshort{jwt}, и используемого алгоритма подписи, такого как HMAC SHA256 или RSA.
+    \item Полезные данные --- это данные, которые хранятся внутри \acrshort{jwt}. Они также называют JWT-claims (заявки). Список доступных полей для \acrshort{jwt} доступен на \href{https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields}{Wiki}.
+    \item Подпись --- используется для проверки того, что сообщение не было изменено в процессе. В компактной форме \acrshort{jwt} является сторой, которая состоит из трех частей, разделенных точками. Псевдокод вычисления подписи:
+    \begin{noerr}
+    \begin{minted}{js}
+SECRET_KEY = 'some string'
+unsignedToken = encodeBase64Url(header) + '.' + encodeBase64Url(payload)
+signature = SHA256(unsignedToken, SECRET_KEY)
+
+// собираем всё вместе
+jwt = encodeBase64Url(header) + '.' + encodeBase64Url(payload) + '.' + encodeBase64Url(signature)
+    \end{minted}
+    \end{noerr}
+\end{itemize}
+
+
 \clearpage
