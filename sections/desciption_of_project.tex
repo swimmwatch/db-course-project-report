@@ -28,15 +28,16 @@
     \item \textbf{Подпись} --- используется для проверки того, что сообщение не было изменено в процессе. В компактной форме \acrshort{jwt} является сторой, которая состоит из трех частей, разделенных точками. Псевдокод вычисления подписи:
     \begin{noerr}
     \begin{minted}{js}
-SECRET_KEY = 'some string'
+SECRET_KEY = 'some string';
 unsignedToken = encodeBase64Url(header) + '.' + encodeBase64Url(payload)
-signature = SHA256(unsignedToken, SECRET_KEY)
+signature = SHA256(unsignedToken, SECRET_KEY);
 
 // собираем всё вместе
-jwt = encodeBase64Url(header) + '.' + encodeBase64Url(payload) + '.' + encodeBase64Url(signature)
+jwt = encodeBase64Url(header) + '.' + encodeBase64Url(payload) + '.' + encodeBase64Url(signature);
     \end{minted}
     \end{noerr}
 \end{itemize}
+
 
 
 \clearpage
