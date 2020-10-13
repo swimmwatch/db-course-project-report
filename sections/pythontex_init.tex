@@ -2,6 +2,7 @@
 import os
 
 PROJECT_PATH = '/home/dmitry-vasiliev/WebstormProjects/db-course-project-app'
+MAX_RELATIVE_PATH_LENGTH = 71
 
 exclude = set([
     '.git',
@@ -24,6 +25,7 @@ exclude_file_ext = set([
 
 exclude_filenames = set([
     'yarn.lock',
+    'yarn-error.log',
     '.env',
     'site.webmanifest',
     '.gitignore',

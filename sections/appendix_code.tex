@@ -22,6 +22,10 @@ for root, dirs, files in os.walk(PROJECT_PATH):
         if lang == '':
             lang = "text"
 
+        if len(relative_filename) > MAX_RELATIVE_PATH_LENGTH:
+            shift = len(relative_filename) - MAX_RELATIVE_PATH_LENGTH
+            relative_filename = '...' + relative_filename[shift:]
+
         print(r'\begin{verbatim}')
         print(relative_filename)
         print(r'\end{verbatim}')
