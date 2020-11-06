@@ -63,4 +63,45 @@ jwt = encodeBase64Url(header) + '.' + encodeBase64Url(payload) + '.' + encodeBas
     \caption{Схема базы данных}
 \end{figure}
 
+\subsubsection{Связи}
+\begin{itemize}
+    \item (users) $1:N$ (tests)
+    \item (tests) $M:N$ (tags)
+    \item (attempts) $1:1$ (tests)
+    \item (attempts) $1:1$ (users)
+\end{itemize}
+\paragraph{Примечание:}
+
+\begin{itemize}
+    \item $1:N$ -- один ко многим
+    \item $M:N$ -- многие ко многим
+    \item $1:1$ -- один к одному
+\end{itemize}
+
+\subsubsection{Хуки (Триггеры)}
+Для некоторых таблиц заданы хуки, которые позволяют обработать события связанные с вставкой, обновлением, удалением и т.д.
+
+\begin{itemize}
+    \item \mintinline{ts}{User}: \begin{itemize}
+        \item \mintinline{ts}{beforeCreate} -- шифрует пароль перед вставкой в таблицу.
+        \item \mintinline{ts}{beforeUpdate} -- шифрует пароль перед обновлением.
+    \end{itemize}
+    \item \mintinline{ts}{Attempt}: \begin{itemize}
+        \item \mintinline{ts}{afterUpdate} -- удаляет все попытки у теста, если он был изменён.
+    \end{itemize}
+    \item \mintinline{ts}{TestTag}: \begin{itemize}
+        \item \mintinline{ts}{afterDelete} -- удаляет теги, которое не используются.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Процедуры (методы модели)}
+Для модели \mintinline{ts}{User} есть две процедуры:
+\begin{itemize}
+    \item \mintinline{ts}{comparePasswords(password: string)} -- инстанс метод, который стравнивает пароль текущего пользователя с \mintinline{ts}{password}.
+    \item \mintinline{ts}{hashPassword(password: string)} -- статический метод, который шифрует \mintinline{ts}{password}.
+\end{itemize}
+
+\subsubsection{Каскадное удаление}
+Каскадное удаление в мире реляционных баз данных позволяет удалять связанные данные из зависимой таблицы, при удалении данных из основной таблицы. У меня оно использую во всех таблицах.
+
 \clearpage
