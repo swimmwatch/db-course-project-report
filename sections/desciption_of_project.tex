@@ -99,6 +99,18 @@ print(r"\inputminted{csharp}{" + path + r"}")
     \end{itemize}
 \end{itemize}
 
+\subsubsection{Обработка ошибок}
+Если во время обработки запроса появилась ошибка, то она идёт в middleware errorHandler. Там формируется ответ с кодом ошибки и с сообщениями.
+
+\begin{listing}[H]
+\begin{pycode}
+path = f"{PROJECT_PATH}/src/middlewares/errorHandler.js"
+
+print(r"\inputminted{csharp}{" + path + r"}")
+\end{pycode}
+\caption{Исходный код middleware errorHandler.js}
+\end{listing}
+
 \subsection{Схема базы данных}
 \begin{figure}[h!]
     \begin{center}
