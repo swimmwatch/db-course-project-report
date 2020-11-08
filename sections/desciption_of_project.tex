@@ -1,6 +1,6 @@
 \section{Описание проекта}
 \subsection{Разработка дизайна}
-Так как я не дизайнер, то мне нужно оперировать концептами и эскизами интерфейса. Поэтому вначале я сделал макет страниц и связь между ними.
+Так как я не дизайнер, то мне нужно оперировать концептами и эскизами интерфейса.
 
 \subsection{Авторизации через \acrfull{jwt}}
 
@@ -28,7 +28,7 @@
 
 \acrshort{jwt} состоит из следующих частей:
 \begin{itemize}
-    \item \textbf{Заголовок} ---  содержит информацию о том, как должна вычисляться подпись. Обычно состоит из двух частей: типа токена, которым является \acrshort{jwt}, и используемого алгоритма подписи, такого как HMAC SHA256 или RSA.
+    \item \textbf{Заголовок} --- содержит информацию о том, как должна вычисляться подпись. Обычно состоит из двух частей: типа токена, которым является \acrshort{jwt}, и используемого алгоритма подписи, такого как HMAC SHA256 или RSA.
     \item \textbf{Полезные данные} --- это данные, которые хранятся внутри \acrshort{jwt}. Они также называют JWT-claims (заявки). Список доступных полей для \acrshort{jwt} доступен на \href{https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields}{Wiki}.
     \item \textbf{Подпись} --- используется для проверки того, что сообщение не было изменено в процессе. В компактной форме \acrshort{jwt} является сторой, которая состоит из трех частей, разделенных точками. Псевдокод вычисления подписи:
     \begin{noerr}
@@ -47,13 +47,47 @@ jwt = encodeBase64Url(header) + '.' + encodeBase64Url(payload) + '.' + encodeBas
 Авторизация проходит следущим образом:
 \begin{enumerate}
     \item Пользователь делает \mintinline{text}{POST /api/signup} запрос на регистрацию. Если всё нормально, то в базе данных создаётся запись с данными пользователя.
-    \item Пользователь делает \mintinline{text}{POST /api/signin} запрос на аутентификацию. Если данные верные, то высылается \acrshort{jwt} вместе с состоянием пользователя (логин, почта). Когда ответ с сервера получен, то \acrshort{jwt} сохраняется в localStorage (долговременное хранилище), а состояние передается в глобальное \textcite{redux} хранилище.
+    \item Пользователь делает \mintinline{text}{POST /api/signin} запрос на аутентификацию. Если данные верные, то высылается \acrshort{jwt} вместе с состоянием пользователя (логин, почта). Когда ответ с сервера получен, то \acrshort{jwt} сохраняется в \mintinline{text}{localStorage} (долговременное хранилище), а состояние передается в глобальное \textcite{redux} хранилище.
     \item После того, как состояние глобального хранилища обновилось, приложение обновляет интерфейс.
 \end{enumerate}
 
-Если перезагрузить веб-страницу, то \textcite{redux} хранилище обнуляется. Поэтому нам нужно сделать следующее: при запуске приложения проверять на валидность JWT, который лежит в localStorage. Это делается через \mintinline{text}{POST /api/init} запрос. Если токен валидный, то переавторизовываем пользователя. Иначе перенаправляем на главную страницу.
+Если перезагрузить веб-страницу, то \textcite{redux} хранилище обнуляется. Поэтому нам нужно сделать следующее: при запуске приложения проверять на валидность JWT, который лежит в \mintinline{text}{localStorage}. Это делается через \mintinline{text}{POST /api/init} запрос. Если токен валидный, то переавторизовываем пользователя. Иначе перенаправляем на главную страницу.
 
-Далее этот токет будет использоваться для доступа к защищёнными ресурсам.
+Далее этот токет будет использоваться для доступа к защищёнными ресурсам. Для проверки доступа к ресурсу была реализована middleware, которая исполняется перед основным обработчиком запроса. Если токен валидный, то запрос идёт дальше c извлечёнными данными из \acrshort{jwt}, иначе сервер отвечает со статусом \mintinline{text}{403 Forbidden}.
+
+\begin{listing}[H]
+\begin{pycode}
+path = f"{PROJECT_PATH}/src/middlewares/checkToken.js"
+
+print(r"\inputminted{csharp}{" + path + r"}")
+\end{pycode}
+\caption{Исходный код middleware checkToken.js}
+\end{listing}
+
+\subsection{API сервера}
+\begin{itemize}
+    \item Пользователь: \begin{itemize}
+        \item \mintinline{text}{POST /api/profile/delete} -- удаление пользователя.
+        \item \mintinline{text}{POST /api/profile/update-password} -- обновление пароля пользователя.
+        \item \mintinline{text}{POST /api/signup} -- регистрация пользователя.
+        \item \mintinline{text}{POST /api/signin} -- аутентификация пользователя.
+    \end{itemize}
+    \item Тест: \begin{itemize}
+        \item \mintinline{text}{POST /api/test/create} -- создание теста.
+        \item \mintinline{text}{PUT /api/test/update} -- обновление теста.
+        \item \mintinline{text}{POST /api/test/update} -- получение теста для редактирования.
+        \item \mintinline{text}{GET /api/test/pass} -- получение теста для прохождения.
+        \item \mintinline{text}{GET /api/test/result} -- получение результа попытки.
+        \item \mintinline{text}{POST /api/test/check} -- проверка ответов теста.
+        \item \mintinline{text}{GET /api/test/profile} -- получение собственных тестов.
+        \item \mintinline{text}{GET /api/test/all} -- получение всех тестов.
+        \item \mintinline{text}{DELETE /api/test/delete} -- удаление теста.
+    \end{itemize}
+    \item Попытка: \begin{itemize}
+        \item \mintinline{text}{GET /api/attempt/test} -- получение статистики теста.
+        \item \mintinline{text}{GET /api/attempt/profile} -- получение попыток пользователя.
+    \end{itemize}
+\end{itemize}
 
 \subsection{Схема базы данных}
 \begin{figure}[h!]
