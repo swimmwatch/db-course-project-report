@@ -14,14 +14,12 @@
 
 Так как десктоп приложение работает на Electron, то необходимо на сервере обработать отправку нужного шаблона. Для этого есть проверка заголовка \mintinline{text}{User-agent} в главном роуторе:
 
-\begin{listing}[H]
 \begin{pycode}
 path = f"{PROJECT_PATH}/src/routes/main.js"
 
-print(r"\inputminted{csharp}{" + path + r"}")
+print(r"\inputminted{js}{" + path + r"}")
 \end{pycode}
-\caption{Исходный код главного роутора}
-\end{listing}
+\captionof{listing}{Исходный код главного роутора}
 
 \subsection{Авторизация через \acrfull{jwt}}
 
@@ -76,42 +74,33 @@ jwt = encodeBase64Url(header) + '.' + encodeBase64Url(payload) + '.' + encodeBas
 
 Далее этот токет будет использоваться для доступа к защищёнными ресурсам. Для проверки доступа к ресурсу была реализована middleware, которая исполняется перед основным обработчиком запроса. Если токен валидный, то запрос идёт дальше c извлечёнными данными из \acrshort{jwt}, иначе сервер отвечает со статусом \mintinline{text}{403 Forbidden}.
 
-\begin{listing}[H]
 \begin{pycode}
 path = f"{PROJECT_PATH}/src/middlewares/checkToken.js"
 
 print(r"\inputminted{js}{" + path + r"}")
 \end{pycode}
-\caption{Исходный код middleware checkToken.js}
-\end{listing}
+\captionof{listing}{Исходный код middleware checkToken.js}
 
 \subsubsection{Ограничение доступа к страницам}
 Для ограничения доступа к определенным страницам я сделал high-order компоненты: \mintinline{text}{PrivateRoute}, \mintinline{text}{NotIsLoggedInRoute}.
 
-\begin{itemize}
-    \item \mintinline{text}{PrivateRoute} -- нужен для ограничения доступа к страницам, где нужна авторизация.
+\mintinline{text}{PrivateRoute} -- нужен для ограничения доступа к страницам, где нужна авторизация.
 
-\begin{listing}[H]
 \begin{pycode}
 path = f"{PROJECT_PATH}/src/client/hoc/PrivateRoute/PrivateRoute.jsx"
 
 print(r"\inputminted{jsx}{" + path + r"}")
 \end{pycode}
-\caption{Исходный код PrivateRoute.jsx}
-\end{listing}
-    
-    \item \mintinline{text}{NotIsLoggedInRoute} -- нужен для ограничения доступа к страницам, где не нужна авторизация.
+\captionof{listing}{Исходный код PrivateRoute.jsx}
 
-\begin{listing}[H]
+\mintinline{text}{NotIsLoggedInRoute} -- нужен для ограничения доступа к страницам, где не нужна авторизация.
+
 \begin{pycode}
 path = f"{PROJECT_PATH}/src/client/hoc/NotIsLoggedInRoute/NotIsLoggedInRoute.jsx"
 
 print(r"\inputminted{jsx}{" + path + r"}")
 \end{pycode}
-\caption{Исходный код NotIsLoggedInRoute.jsx}
-\end{listing}
-
-\end{itemize}
+\captionof{listing}{Исходный код NotIsLoggedInRoute.jsx}
 
 Оба компонента являются обёрткой над \mintinline{text}{Route} из библиотеки \mintinline{text}{react-router-dom}.
 
@@ -143,14 +132,12 @@ print(r"\inputminted{jsx}{" + path + r"}")
 \subsubsection{Обработка ошибок}
 Если во время обработки запроса появилась ошибка, то она идёт в middleware \mintinline{text}{errorHandler}. Там формируется ответ с кодом ошибки и с сообщениями.
 
-\begin{listing}[H]
 \begin{pycode}
 path = f"{PROJECT_PATH}/src/middlewares/errorHandler.js"
 
 print(r"\inputminted{js}{" + path + r"}")
 \end{pycode}
-\caption{Исходный код middleware errorHandler.js}
-\end{listing}
+\captionof{listing}{Исходный код middleware errorHandler.js}
 
 \subsection{Схема базы данных}
 \begin{figure}[h!]
