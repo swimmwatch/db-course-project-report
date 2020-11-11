@@ -181,11 +181,25 @@ print(r"\inputminted{js}{" + path + r"}")
 \subsubsection{Процедуры (методы модели)}
 Для модели \mintinline{ts}{User} есть две процедуры:
 \begin{itemize}
-    \item \mintinline{ts}{comparePasswords(password: string)} -- инстанс метод, который стравнивает пароль текущего пользователя с \mintinline{ts}{password}.
-    \item \mintinline{ts}{hashPassword(password: string)} -- статический метод, который шифрует \mintinline{ts}{password}.
+    \item \mintinline{ts}{comparePasswords(password: string)} -- инстанс метод, который сравнивает пароль текущего пользователя с \mintinline{ts}{password}.
+    \item \mintinline{ts}{hashPassword(password: string)} -- статический метод, который хеширует \mintinline{ts}{password}.
 \end{itemize}
 
 \subsubsection{Каскадное удаление}
 Каскадное удаление в мире реляционных баз данных позволяет удалять связанные данные из зависимой таблицы, при удалении данных из основной таблицы. У меня оно использую во всех таблицах.
+
+\subsubsection{Бекап}
+Бекап -- необходимая процедура для обеспечения информационной безопасности и целостности любого проекта. В \textcite{postgres} для этого есть есть две утилиты:
+\mintinline{text}{pg_dump} -- делает бекап.
+\mintinline{text}{pg_restore} -- восстанавливает базу из бекапа.
+
+Для работы с бекапами я написал скрипт на bash. Он может делать бекапы для production или development версии приложения, а также восстанавливает.
+
+\begin{pycode}
+path = f"{PROJECT_PATH}/util/manage_backup.sh"
+
+print(r"\inputminted{bash}{" + path + r"}")
+\end{pycode}
+\captionof{listing}{Исходный код скрипта}
 
 \clearpage
