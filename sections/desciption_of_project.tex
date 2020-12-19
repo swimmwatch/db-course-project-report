@@ -147,6 +147,15 @@ print(r"\inputminted{js}{" + path + r"}")
     \caption{Схема базы данных}
 \end{figure}
 
+\subsubsection{Управление базой данных}
+Для управления есть утилита \mintinline{text}{sequelize}. В ней можно создавать и удалять БД, а также генерировать модели. В конфиге прописываются все логины и пароли для баз данных.
+
+Основные команды:
+\begin{itemize}
+    \item \mintinline{text}{db:create} -- создание базы данных. Через ключ \mintinline{text}{--env} можно указать, в какой среде нужно выполнять действие.
+    \item \mintinline{text}{db:drop} -- удаление базы данных.
+\end{itemize}
+
 \subsubsection{Связи}
 \begin{itemize}
     \item (users) $1:N$ (tests)
@@ -190,10 +199,12 @@ print(r"\inputminted{js}{" + path + r"}")
 
 \subsubsection{Бекап}
 Бекап -- необходимая процедура для обеспечения информационной безопасности и целостности любого проекта. В \textcite{postgres} для этого есть есть две утилиты:
-\mintinline{text}{pg_dump} -- делает бекап.
-\mintinline{text}{pg_restore} -- восстанавливает базу из бекапа.
+\begin{itemize}
+    \item \mintinline{text}{pg_dump} -- делает бекап.
+    \item \mintinline{text}{pg_restore} -- восстанавливает базу из бекапа.
+\end{itemize}
 
-Для работы с бекапами я написал скрипт на bash. Он может делать бекапы для production или development версии приложения, а также восстанавливает.
+Для работы с бекапами я написал скрипт на bash. Он может делать бекапы для production или development версии приложения, а также восстанавливать.
 
 \begin{pycode}
 path = f"{PROJECT_PATH}/util/manage_backup.sh"
